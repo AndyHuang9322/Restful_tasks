@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpService } from './http.service';
 
 
@@ -7,11 +7,20 @@ import { HttpService } from './http.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'public';
+  tasks = [];
 
   constructor(private _httpService: HttpService){
     console.log('hello');
+  }
+
+  ngOnInit(){
+    this.getAllTasks();
+  }
+
+  getAllTasks(){
+    this._httpService.getTasks().subscribe(all_tasks=> this.tasks=all_tasks['data'])
   }
 
 }
