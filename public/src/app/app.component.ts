@@ -10,17 +10,20 @@ import { HttpService } from './http.service';
 export class AppComponent implements OnInit {
   title = 'public';
   tasks = [];
+  task: any;
 
   constructor(private _httpService: HttpService){
     console.log('hello');
   }
 
   ngOnInit(){
-    this.getAllTasks();
   }
 
   getAllTasks(){
     this._httpService.getTasks().subscribe(all_tasks=> this.tasks=all_tasks['data'])
+  }
+  getOneDescription(id:string){
+    this._httpService.getTask(id).subscribe(task=> this.task=task['data'])
   }
 
 }
